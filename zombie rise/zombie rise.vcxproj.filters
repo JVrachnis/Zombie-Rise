@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Basic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteSheet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Neutral.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerItems.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyProjectile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerProjectile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteSheet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Zombie.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Body1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Body2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Body3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Body4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Body5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Body6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Body7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Body8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Body9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Body10.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Body11.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Body12.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Body13.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Body14.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Body15.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Body16.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Body17.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Feet1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Feet2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Feet3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Feet4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Feet5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
