@@ -6,7 +6,7 @@
 class Player:public Basic
 {
 public:
-	Player(Graphics* g, ID2D1Bitmap* body[17], ID2D1Bitmap* feet[8]);
+	Player(Graphics* g, ID2D1Bitmap* body[17], ID2D1Bitmap* feet[8], HWND windowhanle);
 	~Player();
 	void Collision();
 	void Update();
@@ -25,9 +25,10 @@ public:
 private:
 	ID2D1Bitmap* body[17];
 	ID2D1Bitmap* feet[8];
+	HWND hwnd;
 	
 };
-Player::Player(Graphics* g,ID2D1Bitmap* b[17],ID2D1Bitmap* f[8])
+Player::Player(Graphics* g,ID2D1Bitmap* b[17],ID2D1Bitmap* f[8], HWND windowhanle)
 {
 	gfx = g;
 	CenterPosition.x =CenterPosition.y = 0;
@@ -39,6 +40,7 @@ Player::Player(Graphics* g,ID2D1Bitmap* b[17],ID2D1Bitmap* f[8])
 	{
 		feet[i] = f[i];
 	}
+	hwnd = windowhanle;
 }
 
 Player::~Player()
@@ -51,7 +53,7 @@ void Player::Update() {
 
 	if (gunFire) { GunAnimation();
 	}
-	Events();
+	if(hwnd == GetForegroundWindow())Events();
 	Sleep(30);
 }
 void Player::Draw() {
@@ -121,6 +123,7 @@ void Player::GunAnimation() {
 	}
 }
 void Player::Events() {
+	
 	if (GetAsyncKeyState(VK_LEFT) & 0x8000 || GetAsyncKeyState('A') & 0x8000)
 	{
 		CenterPosition.x -= 20;
@@ -148,6 +151,7 @@ void Player::Events() {
 	if ((GetKeyState(VK_LBUTTON) & 0x100)) {
 		gunFire = true;
 	}
+
 	if (GetAsyncKeyState('1') & 0x8000)
 	{
 		gun = 1;
@@ -171,11 +175,60 @@ void Player::Events() {
 		bodyI = 14;
 	}
 	POINT p;
+	RECT r;
 	if (GetCursorPos(&p))
 	{
+		GetWindowRect(hwnd,&r);
+		p.x -= r.left;
+		p.y -= r.top;
 		int x = CenterPosition.x;
 		int y = CenterPosition.y;
 		angle = atan2((p.y - y), (p.x - x));
 		bodyRotation = (atan2((p.y - y), (p.x - x))) * 360 / (2 * M_PI);
 	}
+	/*
+	this was realy slow
+	MSG message;
+	message.message = WM_NULL;
+	if (GetMessage(&message, NULL, 0, 0) > 0) {
+		switch (message.message)
+		{
+		case(WM_MOUSEMOVE): {
+			POINT p;
+			p.x = LOWORD(message.lParam);
+			p.y = HIWORD(message.lParam);
+			int x = CenterPosition.x;
+			int y = CenterPosition.y;
+			angle = atan2((p.y - y), (p.x - x));
+			bodyRotation = (atan2((p.y - y), (p.x - x))) * 360 / (2 * M_PI);
+			break;
+		}
+		case(WM_KEYDOWN): {
+			if (message.wParam == 'A')
+			{
+				CenterPosition.x -= 20;
+				feetRotation = 180;
+			}
+			if (message.wParam == 'D') {
+				CenterPosition.x += 20;
+				feetRotation = 0;
+			}
+			if (message.wParam == 'W')
+			{
+				CenterPosition.y -= 20;
+
+				feetRotation = 90;
+			}
+			if (message.wParam == 'S') {
+				CenterPosition.y += 20;
+				feetRotation = -90;
+			}
+			FeetMovment();
+			break;
+		}
+		case(PM_REMOVE):DispatchMessage(&message);
+		default:
+			break;
+		}
+	}*/
 }
