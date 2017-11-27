@@ -3,6 +3,9 @@
 #include"Graphics.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <list>
+const float WINDOW_SIZE_X = 800;
+const float WINDOW_SIZE_Y = 800;
 class Player:public Basic
 {
 public:
@@ -11,18 +14,21 @@ public:
 	void Collision();
 	void Update();
 	void Draw();
-	void Events();
-	void GunAnimation();
-	void FeetMovment();
-	float angle;
-	int bodyRotation=0;
-	int feetRotation=0;
-	int feetI=0, bodyI=0;
-	int feetM=0,gun=1;
 	bool gunFire=false;
 	D2D1_POINT_2F CenterPosition;
 	//POINT CenterPosition;
 private:
+	void Events();
+	void GunAnimation();
+	void FeetMovment(int x, int y);
+	void FeetStop();
+	float angle;
+	int bodyRotation = 0;
+	int feetRotation = 0;
+	int feetI = 0, bodyI = 0;
+	int feetM = 0, gun = 0;
+	long time = 0, timeMove = 0, timeStop = 0, timeGun = 0;
+	std::list<Basic>* entities;
 	ID2D1Bitmap* body[17];
 	ID2D1Bitmap* feet[8];
 	HWND hwnd;
@@ -31,6 +37,7 @@ private:
 Player::Player(Graphics* g,ID2D1Bitmap* b[17],ID2D1Bitmap* f[8], HWND windowhanle)
 {
 	gfx = g;
+	this->entities = entities;
 	CenterPosition.x =CenterPosition.y = 0;
 	for (int i = 0; i < 17; i++)
 	{
@@ -54,10 +61,9 @@ void Player::Update() {
 	if (gunFire) { GunAnimation();
 	}
 	if(hwnd == GetForegroundWindow())Events();
-	Sleep(30);
+	time++;
 }
 void Player::Draw() {
-
 	gfx->GetRenderTarget()->SetTransform(D2D1::Matrix3x2F::Rotation(feetRotation, CenterPosition));
 	gfx->GetRenderTarget()->DrawBitmap(
 		feet[feetI], D2D1::RectF(CenterPosition.x - feet[feetI]->GetSize().width/2, CenterPosition.y - feet[feetI]->GetSize().height/2, CenterPosition.x + feet[feetI]->GetSize().width/2, CenterPosition.y + feet[feetI]->GetSize().height/2), 1.0f,
@@ -71,83 +77,109 @@ void Player::Draw() {
 		D2D1_BITMAP_INTERPOLATION_MODE::D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
 		D2D1::RectF(0.0f, 0.0f, body[bodyI]->GetSize().width, body[bodyI]->GetSize().height)
 	);
-	
 	gfx->GetRenderTarget()->SetTransform(D2D1::Matrix3x2F::Rotation(0, CenterPosition));
 }
-void Player::FeetMovment() {
-	
-	if (feetI<7)
-	{
-		feetI++;
+void Player::FeetMovment(int x,int y) {
+		if (feetI < 7)
+		{
+			if (time - timeMove >= 5) {
+				feetI++;
+				timeMove = time;
+				CenterPosition.x += x;
+				CenterPosition.y += y;
+			}
+		}
+		else feetI = 0;
+		
+}
+void Player::FeetStop() {
+	if (time-timeStop >= 5) {
+		if (feetI != 0 && feetI != 4) {
+			feetI--;
+			timeStop = time;
+		}
+		
 	}
-	else feetI = 0;
 }
 void Player::GunAnimation() {
 	if (gun==1)
 	{
-		bodyI++;
-		if (bodyI>4)
-		{
-			bodyI = 1;
-			gunFire = false;
+		if (time - timeGun >= 5) {
+			bodyI++;
+			if (bodyI > 4)
+			{
+				bodyI = 1;
+				gunFire = false;
+			}
+			timeGun = time;
 		}
-		Sleep(10);
 	}else if (gun == 3)
 	{
-		bodyI++;
-		if (bodyI > 10)
-		{
-			bodyI = 6;
-			gunFire = false;
+		if (time - timeGun >= 6) {
+			bodyI++;
+			if (bodyI > 10)
+			{
+				bodyI = 6;
+				gunFire = false;
+			}
+			timeGun = time;
 		}
-		Sleep(30);
 	}else if (gun == 4)
 		{
+		if (time - timeGun >= 20) {
 			bodyI++;
-			if (bodyI>13)
+			if (bodyI > 13)
 			{
 				bodyI = 11;
 				gunFire = false;
 			}
-			Sleep(30);
+			timeGun = time;
 		}
+	}
 	else if (gun == 5)
 	{
-		bodyI++;
-		if (bodyI>16)
-		{
-			bodyI = 14;
-			gunFire = false;
+		if (time - timeGun >= 15) {
+			bodyI++;
+			if (bodyI > 16)
+			{
+				bodyI = 14;
+				gunFire = false;
+			}
+			timeGun = time;
 		}
-		Sleep(30);
 	}
 }
 void Player::Events() {
-	
+	int moveY = 0, moveX = 0;
+	if (CenterPosition.x - 30>0)
 	if (GetAsyncKeyState(VK_LEFT) & 0x8000 || GetAsyncKeyState('A') & 0x8000)
 	{
-		CenterPosition.x -= 20;
-		feetRotation = 180;
+		moveX = -20;
 	}
+	if (CenterPosition.x + 30<WINDOW_SIZE_X)
 	if (GetAsyncKeyState(VK_RIGHT) & 0x8000 || GetAsyncKeyState('D') & 0x8000) {
-		CenterPosition.x += 20;
-		feetRotation = 0;
+		moveX = 20;
 	}
-	if (GetAsyncKeyState(VK_UP) & 0x8000 || GetAsyncKeyState('W') & 0x8000)
-	{
-		CenterPosition.y -= 20;
-
-		feetRotation = 90;
-	}
+	if (CenterPosition.y-30>0) 
+		if (GetAsyncKeyState(VK_UP) & 0x8000 || GetAsyncKeyState('W') & 0x8000)
+		{
+			moveY = -20;
+		}
+	
+	if (CenterPosition.y + 30<WINDOW_SIZE_Y)
 	if (GetAsyncKeyState(VK_DOWN) & 0x8000 || GetAsyncKeyState('S') & 0x8000) {
-		CenterPosition.y += 20;
-		feetRotation = -90;
+		moveY = 20;
+	}
+	if (moveY != 0 || moveX != 0) {
+		float angleT = atan2((moveY), (moveX));
+		feetRotation =  angleT* 360 / (2 * M_PI);
+		FeetMovment(20 * cos(angleT), 20 * sin(angleT));
+	}
+	else {
+		FeetStop();
+	}
+
 		
-	}
-	if (GetAsyncKeyState(VK_LEFT) & 0x8000 || GetAsyncKeyState('A') & 0x8000|| GetAsyncKeyState(VK_RIGHT) & 0x8000 || GetAsyncKeyState('D') & 0x8000||
-		GetAsyncKeyState(VK_UP) & 0x8000 || GetAsyncKeyState('W') & 0x8000|| GetAsyncKeyState(VK_DOWN) & 0x8000 || GetAsyncKeyState('S') & 0x8000) {
-		FeetMovment();
-	}
 	if ((GetKeyState(VK_LBUTTON) & 0x100)) {
 		gunFire = true;
 	}

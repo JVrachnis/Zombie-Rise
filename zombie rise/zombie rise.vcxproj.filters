@@ -42,6 +42,12 @@
     <ClInclude Include="PlayerProjectile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Gamelevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics.cpp">

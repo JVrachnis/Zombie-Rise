@@ -115,9 +115,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="Basic.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyProjectile.h" />
+    <ClInclude Include="Gamelevel.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Neutral.h" />
     <ClInclude Include="Player.h" />
