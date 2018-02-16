@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\bodyAnimation">
+      <UniqueIdentifier>{f0e8402e-d7ad-4135-a198-e5a76c5e373f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\feetAnimation">
+      <UniqueIdentifier>{cd99a531-7e78-4e6f-a899-94e4f4575719}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Basic.h">
@@ -48,6 +54,9 @@
     <ClInclude Include="Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="bullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics.cpp">
@@ -64,71 +73,76 @@
     <Image Include="Zombie.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Body1.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="bodyAnimation\Body1.png">
+      <Filter>Resource Files\bodyAnimation</Filter>
     </Image>
-    <Image Include="Body2.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="bodyAnimation\Body2.png">
+      <Filter>Resource Files\bodyAnimation</Filter>
     </Image>
-    <Image Include="Body3.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="bodyAnimation\Body3.png">
+      <Filter>Resource Files\bodyAnimation</Filter>
     </Image>
-    <Image Include="Body4.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="bodyAnimation\Body4.png">
+      <Filter>Resource Files\bodyAnimation</Filter>
     </Image>
-    <Image Include="Body5.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="bodyAnimation\Body5.png">
+      <Filter>Resource Files\bodyAnimation</Filter>
     </Image>
-    <Image Include="Body6.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="bodyAnimation\Body6.png">
+      <Filter>Resource Files\bodyAnimation</Filter>
     </Image>
-    <Image Include="Body7.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="bodyAnimation\Body7.png">
+      <Filter>Resource Files\bodyAnimation</Filter>
     </Image>
-    <Image Include="Body8.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="bodyAnimation\Body8.png">
+      <Filter>Resource Files\bodyAnimation</Filter>
     </Image>
-    <Image Include="Body9.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="bodyAnimation\Body9.png">
+      <Filter>Resource Files\bodyAnimation</Filter>
     </Image>
-    <Image Include="Body10.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="bodyAnimation\Body10.png">
+      <Filter>Resource Files\bodyAnimation</Filter>
     </Image>
-    <Image Include="Body11.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="bodyAnimation\Body11.png">
+      <Filter>Resource Files\bodyAnimation</Filter>
     </Image>
-    <Image Include="Body12.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="bodyAnimation\Body12.png">
+      <Filter>Resource Files\bodyAnimation</Filter>
     </Image>
-    <Image Include="Body13.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="bodyAnimation\Body13.png">
+      <Filter>Resource Files\bodyAnimation</Filter>
     </Image>
-    <Image Include="Body14.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="bodyAnimation\Body14.png">
+      <Filter>Resource Files\bodyAnimation</Filter>
     </Image>
-    <Image Include="Body15.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="bodyAnimation\Body15.png">
+      <Filter>Resource Files\bodyAnimation</Filter>
     </Image>
-    <Image Include="Body16.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="bodyAnimation\Body16.png">
+      <Filter>Resource Files\bodyAnimation</Filter>
     </Image>
-    <Image Include="Body17.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="bodyAnimation\Body17.png">
+      <Filter>Resource Files\bodyAnimation</Filter>
     </Image>
-    <Image Include="Feet1.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="feetAnimation\Feet1.png">
+      <Filter>Resource Files\feetAnimation</Filter>
     </Image>
-    <Image Include="Feet2.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="feetAnimation\Feet2.png">
+      <Filter>Resource Files\feetAnimation</Filter>
     </Image>
-    <Image Include="Feet3.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="feetAnimation\Feet3.png">
+      <Filter>Resource Files\feetAnimation</Filter>
     </Image>
-    <Image Include="Feet4.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="feetAnimation\Feet4.png">
+      <Filter>Resource Files\feetAnimation</Filter>
     </Image>
-    <Image Include="Feet5.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="feetAnimation\Feet5.png">
+      <Filter>Resource Files\feetAnimation</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="feetAnimation\bitmaps.txt">
+      <Filter>Resource Files\feetAnimation</Filter>
+    </Text>
   </ItemGroup>
 </Project>

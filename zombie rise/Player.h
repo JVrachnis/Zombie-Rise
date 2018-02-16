@@ -1,21 +1,21 @@
 #pragma once
 #include"Basic.h"
-#include"Graphics.h"
+#include"bullet.h"
+
 #define _USE_MATH_DEFINES
 #include <math.h>
-#include <list>
 const float WINDOW_SIZE_X = 800;
 const float WINDOW_SIZE_Y = 800;
 class Player:public Basic
 {
 public:
-	Player(Graphics* g, ID2D1Bitmap* body[17], ID2D1Bitmap* feet[8], HWND windowhanle);
+	Player(Graphics* g, HWND windowhanle);
 	~Player();
 	void Collision();
 	void Update();
 	void Draw();
 	bool gunFire=false;
-	D2D1_POINT_2F CenterPosition;
+	
 	//POINT CenterPosition;
 private:
 	void Events();
@@ -29,25 +29,21 @@ private:
 	int feetM = 0, gun = 0;
 	long time = 0, timeMove = 0, timeStop = 0, timeGun = 0;
 	std::list<Basic>* entities;
-	ID2D1Bitmap* body[17];
-	ID2D1Bitmap* feet[8];
+	Animation* currentBody,* body,* gun1,* gun2,* gun3,* gun4,* gun5;
+	Animation* feet;
 	HWND hwnd;
-	
 };
-Player::Player(Graphics* g,ID2D1Bitmap* b[17],ID2D1Bitmap* f[8], HWND windowhanle)
+Player::Player(Graphics* g, HWND windowhanle)
 {
 	gfx = g;
 	this->entities = entities;
 	CenterPosition.x =CenterPosition.y = 0;
-	for (int i = 0; i < 17; i++)
-	{
-		body[i] = b[i];
-	}
-	for (int i = 0; i < 8; i++)
-	{
-		feet[i] = f[i];
-	}
+	body = new Animation(1,L"bodyAnimation", gfx);
+	gun1 = new Animation(1, L"gun1Animation", gfx);
+	currentBody = body;
+	feet = new Animation(1,L"feetAnimation", gfx);
 	hwnd = windowhanle;
+	items = new list<Basic*>() ;
 }
 
 Player::~Player()
@@ -64,33 +60,15 @@ void Player::Update() {
 	time++;
 }
 void Player::Draw() {
-	gfx->GetRenderTarget()->SetTransform(D2D1::Matrix3x2F::Rotation(feetRotation, CenterPosition));
-	gfx->GetRenderTarget()->DrawBitmap(
-		feet[feetI], D2D1::RectF(CenterPosition.x - feet[feetI]->GetSize().width/2, CenterPosition.y - feet[feetI]->GetSize().height/2, CenterPosition.x + feet[feetI]->GetSize().width/2, CenterPosition.y + feet[feetI]->GetSize().height/2), 1.0f,
-		D2D1_BITMAP_INTERPOLATION_MODE::D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
-		D2D1::RectF(0.0f, 0.0f, feet[feetI]->GetSize().width, feet[feetI]->GetSize().height)
-	);
-
-	gfx->GetRenderTarget()->SetTransform(D2D1::Matrix3x2F::Rotation(bodyRotation, CenterPosition));
-	gfx->GetRenderTarget()->DrawBitmap(
-		body[bodyI], D2D1::RectF(CenterPosition.x- body[0]->GetSize().width/2, CenterPosition.y- body[0]->GetSize().height/2, CenterPosition.x+ body[bodyI]->GetSize().width - body[0]->GetSize().width / 2, CenterPosition.y + body[bodyI]->GetSize().height-body[0]->GetSize().height /2), 1.0f,
-		D2D1_BITMAP_INTERPOLATION_MODE::D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
-		D2D1::RectF(0.0f, 0.0f, body[bodyI]->GetSize().width, body[bodyI]->GetSize().height)
-	);
-	gfx->GetRenderTarget()->SetTransform(D2D1::Matrix3x2F::Rotation(0, CenterPosition));
+	feet->Animate(CenterPosition, feetRotation);
+	currentBody->Animate(CenterPosition, bodyRotation);
+	
 }
-void Player::FeetMovment(int x,int y) {
-		if (feetI < 7)
-		{
-			if (time - timeMove >= 5) {
-				feetI++;
-				timeMove = time;
-				CenterPosition.x += x;
-				CenterPosition.y += y;
-			}
-		}
-		else feetI = 0;
-		
+void Player::FeetMovment(int x, int y) {
+
+	CenterPosition.x += x;
+	CenterPosition.y += y;
+	feet->NextAnimetion();
 }
 void Player::FeetStop() {
 	if (time-timeStop >= 5) {
@@ -103,15 +81,24 @@ void Player::FeetStop() {
 }
 void Player::GunAnimation() {
 	if (gun==1)
-	{
-		if (time - timeGun >= 5) {
-			bodyI++;
-			if (bodyI > 4)
+	{	
+		bodyI = 1;
+		gunFire = currentBody->NextAnimetion();	
+		if (!gunFire) {
+
+			POINT p;
+			RECT r;
+			float angleT;
+			if (GetCursorPos(&p))
 			{
-				bodyI = 1;
-				gunFire = false;
+				if (ScreenToClient(hwnd, &p))
+				{
+					int x = CenterPosition.x;
+					int y = CenterPosition.y;
+					angleT = atan2((25), (53));
+					items->push_back(new Bullet(gfx, hwnd, { CenterPosition.x + 53*cos(angleT) * cos(angle),CenterPosition.y + (25/sin(angleT)) * sin(angle) }, bodyRotation));
+				}
 			}
-			timeGun = time;
 		}
 	}else if (gun == 3)
 	{
@@ -154,26 +141,26 @@ void Player::Events() {
 	if (CenterPosition.x - 30>0)
 	if (GetAsyncKeyState(VK_LEFT) & 0x8000 || GetAsyncKeyState('A') & 0x8000)
 	{
-		moveX = -20;
+		moveX = -1;
 	}
 	if (CenterPosition.x + 30<WINDOW_SIZE_X)
 	if (GetAsyncKeyState(VK_RIGHT) & 0x8000 || GetAsyncKeyState('D') & 0x8000) {
-		moveX = 20;
+		moveX = 1;
 	}
 	if (CenterPosition.y-30>0) 
 		if (GetAsyncKeyState(VK_UP) & 0x8000 || GetAsyncKeyState('W') & 0x8000)
 		{
-			moveY = -20;
+			moveY = -1;
 		}
 	
 	if (CenterPosition.y + 30<WINDOW_SIZE_Y)
 	if (GetAsyncKeyState(VK_DOWN) & 0x8000 || GetAsyncKeyState('S') & 0x8000) {
-		moveY = 20;
+		moveY = 1;
 	}
 	if (moveY != 0 || moveX != 0) {
 		float angleT = atan2((moveY), (moveX));
 		feetRotation =  angleT* 360 / (2 * M_PI);
-		FeetMovment(20 * cos(angleT), 20 * sin(angleT));
+		FeetMovment(10 * cos(angleT), 10* sin(angleT));
 	}
 	else {
 		FeetStop();
@@ -186,6 +173,7 @@ void Player::Events() {
 
 	if (GetAsyncKeyState('1') & 0x8000)
 	{
+		currentBody = gun1;
 		gun = 1;
 		bodyI = 1;
 	}else if(GetAsyncKeyState('2') & 0x8000)
@@ -210,13 +198,13 @@ void Player::Events() {
 	RECT r;
 	if (GetCursorPos(&p))
 	{
-		GetWindowRect(hwnd,&r);
-		p.x -= r.left;
-		p.y -= r.top;
-		int x = CenterPosition.x;
-		int y = CenterPosition.y;
-		angle = atan2((p.y - y), (p.x - x));
-		bodyRotation = (atan2((p.y - y), (p.x - x))) * 360 / (2 * M_PI);
+		if (ScreenToClient(hwnd, &p))
+		{
+			int x = CenterPosition.x;
+			int y = CenterPosition.y;
+			angle = atan2((p.y - y), (p.x - x));
+			bodyRotation = (atan2((p.y - y), (p.x - x))) * 360 / (2 * M_PI);
+		}
 	}
 	/*
 	this was realy slow
