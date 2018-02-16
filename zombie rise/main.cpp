@@ -6,15 +6,18 @@
 #include <array>
 #include <vector>
 #include <list>
+#include <stdio.h>
+#include <stdlib.h>
 #include <time.h> 
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "SpriteSheet.h"
 #include"Basic.h"
 #include"Player.h"
-
+using namespace std;
 ID2D1Bitmap*Zombie;
 ID2D1Bitmap* makeImage(wchar_t* filename);
+list<Basic*> items;
 bool initialazed=false;
 Graphics* graphics;
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
@@ -46,23 +49,29 @@ int WINAPI wWinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPWSTR cmd,int nC
 	}
 	MSG message;
 	message.message = WM_NULL;
-	ID2D1Bitmap* body[17] = { makeImage(L"body1.png"),makeImage(L"body2.png") ,makeImage(L"body3.png"), 
-		makeImage(L"body4.png") ,makeImage(L"body5.png") ,makeImage(L"body6.png"), 
-		makeImage(L"body7.png") ,makeImage(L"body8.png") ,makeImage(L"body9.png"),
-		makeImage(L"body10.png") ,makeImage(L"body11.png") ,makeImage(L"body12.png") ,
-		makeImage(L"body13.png") ,makeImage(L"body14.png") ,makeImage(L"body15.png"),
-		makeImage(L"body16.png"),makeImage(L"body17.png") };
-	ID2D1Bitmap* feet[8] = { makeImage(L"Feet1.png"),makeImage(L"Feet2.png"),
-		makeImage(L"Feet3.png"),makeImage(L"Feet2.png"),makeImage(L"Feet1.png"),makeImage(L"Feet5.png") ,makeImage(L"Feet4.png"),makeImage(L"Feet5.png")};
 	//SpriteSheet* Zombie = new SpriteSheet(L"Zombie.png", graphics);
-	Basic* Me = new Player(graphics,body,feet, windowhanle);
-
+	Basic* Me = new Player(graphics,windowhanle);
+	items.push_back(Me);
+	list<Basic*> newItems;
 	while (message.message != WM_QUIT)
 	{
 		if (PeekMessage(&message, NULL, 0, 0, PM_REMOVE)) { DispatchMessage(&message); }
 		graphics->BeginDraw();
 		graphics->ClearScreen(0.2f, 0.4f, 0.8f);
-		Me->Update();
+		for each (Basic* item in items)
+		{
+			item->Update();
+			if ((item->items)!=NULL) {
+				newItems.merge(*(item->items));
+				item->items->clear();
+			}
+		}
+		for each (Basic* item in items)
+		{
+			item->Draw();
+		}
+		items.merge(newItems);
+		newItems.clear();
 		Me->Draw();
 		graphics->EndDraw();
 	}

@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Basic.h" />
+    <ClInclude Include="bullet.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyProjectile.h" />
     <ClInclude Include="Gamelevel.h" />
@@ -133,29 +134,32 @@
     <ClCompile Include="SpriteSheet.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Body1.png" />
-    <Image Include="Body10.png" />
-    <Image Include="Body11.png" />
-    <Image Include="Body12.png" />
-    <Image Include="Body13.png" />
-    <Image Include="Body14.png" />
-    <Image Include="Body15.png" />
-    <Image Include="Body16.png" />
-    <Image Include="Body17.png" />
-    <Image Include="Body2.png" />
-    <Image Include="Body3.png" />
-    <Image Include="Body4.png" />
-    <Image Include="Body5.png" />
-    <Image Include="Body6.png" />
-    <Image Include="Body7.png" />
-    <Image Include="Body8.png" />
-    <Image Include="Body9.png" />
-    <Image Include="Feet1.png" />
-    <Image Include="Feet2.png" />
-    <Image Include="Feet3.png" />
-    <Image Include="Feet4.png" />
-    <Image Include="Feet5.png" />
+    <Image Include="bodyAnimation\Body1.png" />
+    <Image Include="bodyAnimation\Body10.png" />
+    <Image Include="bodyAnimation\Body11.png" />
+    <Image Include="bodyAnimation\Body12.png" />
+    <Image Include="bodyAnimation\Body13.png" />
+    <Image Include="bodyAnimation\Body14.png" />
+    <Image Include="bodyAnimation\Body15.png" />
+    <Image Include="bodyAnimation\Body16.png" />
+    <Image Include="bodyAnimation\Body17.png" />
+    <Image Include="bodyAnimation\Body2.png" />
+    <Image Include="bodyAnimation\Body3.png" />
+    <Image Include="bodyAnimation\Body4.png" />
+    <Image Include="bodyAnimation\Body5.png" />
+    <Image Include="bodyAnimation\Body6.png" />
+    <Image Include="bodyAnimation\Body7.png" />
+    <Image Include="bodyAnimation\Body8.png" />
+    <Image Include="bodyAnimation\Body9.png" />
+    <Image Include="feetAnimation\Feet1.png" />
+    <Image Include="feetAnimation\Feet2.png" />
+    <Image Include="feetAnimation\Feet3.png" />
+    <Image Include="feetAnimation\Feet4.png" />
+    <Image Include="feetAnimation\Feet5.png" />
     <Image Include="Zombie.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="feetAnimation\bitmaps.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
