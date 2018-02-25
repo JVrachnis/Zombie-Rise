@@ -95,8 +95,8 @@ void Player::GunAnimation() {
 				{
 					int x = CenterPosition.x;
 					int y = CenterPosition.y;
-					angleT = atan2((25), (53));
-					items->push_back(new Bullet(gfx, hwnd, { CenterPosition.x + 53*cos(angleT) * cos(angle),CenterPosition.y + (25/sin(angleT)) * sin(angle) }, bodyRotation));
+					angleT = atan2((6), (30));
+					items->push_back(new Bullet(gfx, hwnd, { CenterPosition.x + 60 *cos(angle+ angleT),CenterPosition.y + 60 *sin(angle + angleT) }, bodyRotation));
 				}
 			}
 		}

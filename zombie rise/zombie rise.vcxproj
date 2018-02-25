@@ -23,6 +23,7 @@
     <ProjectGuid>{A2B89B7A-59F6-4CDA-A472-1D49B4E40CE0}</ProjectGuid>
     <RootNamespace>zombierise</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <TargetFrameworkVersion>4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
