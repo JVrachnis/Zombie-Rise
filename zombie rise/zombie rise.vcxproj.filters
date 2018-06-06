@@ -145,4 +145,7 @@
       <Filter>Resource Files\feetAnimation</Filter>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
 </Project>

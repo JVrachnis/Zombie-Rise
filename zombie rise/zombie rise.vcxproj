@@ -44,6 +44,9 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+    <CLRSupport>true</CLRSupport>
+    <WholeProgramOptimization>PGOptimize</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -162,7 +165,21 @@
   <ItemGroup>
     <Text Include="feetAnimation\bitmaps.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\xercesc.redist.3.1.1\build\native\xercesc.redist.targets" Condition="Exists('..\packages\xercesc.redist.3.1.1\build\native\xercesc.redist.targets')" />
+    <Import Project="..\packages\xercesc.3.1.1\build\native\xercesc.targets" Condition="Exists('..\packages\xercesc.3.1.1\build\native\xercesc.targets')" />
+    <Import Project="..\packages\rapidjson.1.0.2\build\native\rapidjson.targets" Condition="Exists('..\packages\rapidjson.1.0.2\build\native\rapidjson.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\xercesc.redist.3.1.1\build\native\xercesc.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xercesc.redist.3.1.1\build\native\xercesc.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\xercesc.3.1.1\build\native\xercesc.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xercesc.3.1.1\build\native\xercesc.targets'))" />
+    <Error Condition="!Exists('..\packages\rapidjson.1.0.2\build\native\rapidjson.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\rapidjson.1.0.2\build\native\rapidjson.targets'))" />
+  </Target>
 </Project>

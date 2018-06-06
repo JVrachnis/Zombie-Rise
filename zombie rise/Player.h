@@ -45,7 +45,6 @@ Player::Player(Graphics* g, HWND windowhanle)
 	hwnd = windowhanle;
 	items = new list<Basic*>() ;
 }
-
 Player::~Player()
 {
 }

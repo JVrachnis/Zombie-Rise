@@ -9,6 +9,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <rapidjson\allocators.h>
 class Animation
 {
 public:
